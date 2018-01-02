@@ -8,6 +8,7 @@ Thumbs.db
 *.user
 *.aps
 *.pch
+*.pkl
 *.vspscc
 *_i.c
 *_p.c
@@ -32,3 +33,5 @@ _ReSharper*/
 packages/
 .vscode
 .idea
+__macosx
+*__pycache__
