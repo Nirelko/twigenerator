@@ -5,15 +5,12 @@ Main Class
 """
 
 def main():
+    # Create tweet generator instance
     tweet_generator = TweetGenerator()
 
-    tweet_generator.generate_features()
-
-
-    #print('Extracted Features: %d' % len(features))
-	# save to file
-    # dump(features, open('features.pkl', 'a+b'))
-    # dump(texts, open('texts.pkl', 'a+b'))
+    # Generates the features for the tweets and save them to the mongodb
+    #tweet_generator.generate_features()
+    tweet_generator.pre_process_data()
 
 if __name__ == '__main__':
     main()
