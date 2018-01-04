@@ -18,8 +18,3 @@ class MongoDBClient(object):
 
     def insert_learning_data(self, learning_datas):
         self.db.data.insert_many([learning_data.toJSON() for learning_data in learning_datas])
-
-if __name__ == '__main__':
-    tweets = MongoDBClient.get_tweets_cursor(5)
-    for tweet in tweets:
-        print(tweet)
