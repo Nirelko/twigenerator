@@ -29,7 +29,8 @@ class TweetGenerator:
         model = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
 
         # Getting the tweets fro the mongodb
-        tweets = DBContext.get_raw_data_client().get_tweets_cursor(100, 10)
+        tweets = DBContext.get_raw_data_client().get_tweets_cursor(10000, 100)
+        print('nirel got the data from the mongodb')
         learning_datas = []
 
         # The amount of tweets that has been read so far
@@ -90,6 +91,7 @@ class TweetGenerator:
         return img_preprocessed
 
     def pre_process_data(self):
+        print("WE strated")
         learning_data = list(DBContext.get_learning_data_client().get_tweets_cursor().limit(100))
         train_data = learning_data[: round(len(learning_data) * 0.8)]
         test_data = learning_data[len(train_data):]
@@ -104,8 +106,7 @@ class TweetGenerator:
 
         train_tokenizer = text.Tokenizer(num_words=None,
                                    lower=True,
-                                   split=" ",
-                                   char_level=False)
+                                   char_level=True)
 
         testFilteredTexts = [train_text.lower() for train_text in self.get_all_senteces(test_data_dict)]
 
@@ -115,6 +116,7 @@ class TweetGenerator:
         X1train, X2train, Ytrain = self.create_sequences(train_tokenizer, 280, train_data_dict)
 
         # define the model
+        print('yala hitchalno')
         model = self.define_model(self.vocab_size, self.max_length)
         # define checkpoint callback
         filepath = 'model-ep{epoch:03d}-loss{loss:.3f}-val_loss{val_loss:.3f}.h5'

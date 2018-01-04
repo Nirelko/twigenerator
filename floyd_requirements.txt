@@ -1,0 +1,5 @@
+pymongo
+opencv_python
+configparser
+keras
+numpy
