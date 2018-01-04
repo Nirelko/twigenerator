@@ -1,6 +1,7 @@
 import urllib
 import cv2
 import numpy as np
+from numpy import argmax
 from keras.utils import to_categorical
 from keras.applications.inception_v3 import InceptionV3
 from keras.preprocessing import image as keras_image, text, sequence
@@ -14,6 +15,7 @@ from keras.layers import Embedding
 from keras.layers import Dropout
 from keras.layers.merge import add
 from keras.callbacks import ModelCheckpoint
+from keras.models import load_model
 
 from models.learning_data import LearningData
 from db.db_context import DBContext
@@ -126,8 +128,12 @@ class TweetGenerator:
         X1test, X2test, ytest = self.create_sequences(train_tokenizer, self.max_length, test_data_dict)
 
         # fit model
-        model.fit([X1train, X2train], Ytrain, epochs=20, verbose=2, callbacks=[checkpoint],
-                  validation_data=([X1test, X2test], ytest))
+        #model.fit([X1train, X2train], Ytrain, epochs=20, verbose=2, callbacks=[checkpoint],
+        #          validation_data=([X1test, X2test], ytest))
+
+        print(self.predict_sentence(train_tokenizer, list(test_data_dict.values())[0].pred))
+
+
 
     def get_all_senteces(self, learning_data_dict):
         all_sentences = list()
@@ -175,3 +181,45 @@ class TweetGenerator:
         model.compile(loss='categorical_crossentropy', optimizer='adam')
         # summarize model
         return model
+
+    def predict_sentence(self, tokenizer, photo):
+        # load the model
+        filename = 'model-ep004-loss2.734-val_loss2.959.h5'
+        model = load_model(filename)
+        # evaluate model
+
+        return self.generate_desc(model, tokenizer, photo, self.max_length)
+
+    # map an integer to a word
+    def word_for_id(self, integer, tokenizer):
+        for word, index in tokenizer.word_index.items():
+            if index == integer:
+                return word
+        return None
+
+    # generate a description for an image
+    def generate_desc(self, model, tokenizer, photo, max_length):
+        # seed the generation process
+        in_text = 'startseq'
+        # iterate over the whole length of the sequence
+        for i in range(max_length):
+            # integer encode input sequence
+            sequences = tokenizer.texts_to_sequences([in_text])[0]
+            # pad input
+            sequences = sequence.pad_sequences([sequences], maxlen=max_length)
+            # predict next word
+            yhat = model.predict([photo, sequences], verbose=0)
+            # convert probability to integer
+            yhat = argmax(yhat)
+            # map integer to word
+            word = self.word_for_id(yhat, tokenizer)
+            # stop if we cannot map the word
+            if word is None:
+                break
+            # append as input for generating the next word
+            in_text += ' ' + word
+            # stop if we predict the end of the sequence
+            if word == 'endseq':
+                break
+        return in_text
+
