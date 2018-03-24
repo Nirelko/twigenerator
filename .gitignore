@@ -35,3 +35,6 @@ packages/
 .idea
 __macosx
 *__pycache__
+/node_modules/
+*node_modules/
+node_modules/
