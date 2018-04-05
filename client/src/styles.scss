@@ -6,3 +6,14 @@ body, html, .shell {
   width: 100vw;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.dz-wrapper {
+  height: 100%;
+}
+
+.dz-message {
+  height: 100%;
+  margin: 0 !important;
+  border: 2px dashed white !important;
+  background: rgba(0,0,0,.1) !important;
+}

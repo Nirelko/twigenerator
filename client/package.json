@@ -47,6 +47,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-typing": "^0.1.1",
+    "ngx-dropzone-wrapper": "^5.3.5",
     "protractor": "~5.1.2",
     "smooth-scroll": "^12.1.5",
     "ts-node": "~4.1.0",
