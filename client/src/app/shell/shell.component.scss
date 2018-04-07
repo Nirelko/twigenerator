@@ -1,15 +1,7 @@
 .shell {
-    position: relative;
-
-    img {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: 1;
-    }
+    background: linear-gradient(90deg, #4BC8F5 0%, #97e0f9 51%, #4bc8f5 75%);
 
     .content {
-        //background: rgba(0,0,0,.2);
         position: relative;
         z-index: 2;
     }
