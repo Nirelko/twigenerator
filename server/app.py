@@ -1,5 +1,6 @@
+import time
 from flask import Flask, jsonify, request
-from flask.ext.api import status
+from flask_api import status
 from controllers.generator import GeneratorController
 
 app = Flask(__name__, static_url_path='/static')
@@ -20,6 +21,8 @@ def generate_tweet():
 
     if file.filename == '':
         return {'Bad File': 'No File Was Selected'}, status.HTTP_404_NOT_FOUND
+    
+    time.sleep(5)
     
     return jsonify({'message': file.filename})
 

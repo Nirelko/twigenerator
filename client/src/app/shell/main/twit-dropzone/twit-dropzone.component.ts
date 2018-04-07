@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
 @Component({
@@ -8,15 +8,24 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 })
 export class TwitDropzoneComponent implements OnInit {
   dropzoneConfig: DropzoneConfigInterface;
+  @Output() onImageSelected: EventEmitter<void>;
+
+  constructor() {
+    this.onImageSelected = new EventEmitter<void>();
+  }
 
   ngOnInit(): void {
     this.dropzoneConfig = {
-      url() : string {
+      url(): string {
         console.log(arguments);
 
-        return '';
+        return '/api/generator';
       }
     };
+  }
+
+  onFileAdded() {
+    this.onImageSelected.emit();
   }
 }
 

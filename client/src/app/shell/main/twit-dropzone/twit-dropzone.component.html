@@ -1,2 +1,6 @@
-<dropzone fxLayout="row" fxLayoutAlign="start strech" [message]="'Click or drag your image here!'" [config]="dropzoneConfig">
+<dropzone fxLayout="row" 
+        fxLayoutAlign="start strech" 
+        [message]="'Click or drag your image here!'" 
+        [config]="dropzoneConfig" 
+        (addedFile)="onFileAdded()">
 </dropzone>

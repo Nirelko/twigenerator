@@ -14,11 +14,14 @@ import { ShellComponent } from './shell/shell.component';
 import { HeaderComponent } from './shell/header/header.component';
 import { MainComponent } from './shell/main/main.component';
 import { TwitDropzoneComponent } from './shell/main/twit-dropzone/twit-dropzone.component';
+import { LoadingCubeComponent } from './shell/main/loading-cube/loading-cube.component';
+import { LoadingTitleComponent } from './shell/main/loading-title/loading-title.component';
 import { TwitService } from './services/twit.service';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    maxFilesize: 50,
-   acceptedFiles: 'image/*'
+   acceptedFiles: 'image/*',
+   maxFiles: 1
  };
 
 @NgModule({
@@ -27,6 +30,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     HeaderComponent,
     MainComponent,
     TwitDropzoneComponent,
+    LoadingCubeComponent,
+    LoadingTitleComponent
   ],
   imports: [
     BrowserModule,
