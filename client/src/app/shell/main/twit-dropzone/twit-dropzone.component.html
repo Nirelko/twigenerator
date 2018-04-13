@@ -2,5 +2,6 @@
         fxLayoutAlign="start strech" 
         [message]="'Click or drag your image here!'" 
         [config]="dropzoneConfig" 
-        (addedFile)="onFileAdded()">
+        (addedFile)="onFileAdded()"
+        (success)="onFinishedCalcualting($event)">
 </dropzone>

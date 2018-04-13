@@ -1,0 +1,19 @@
+<div class="result-container" fxLayout="row">
+    <img src="{{image}}" />
+    <div fxLayout="column" class="content" fxFlex>
+        <div fxFlex>
+            <div class="sentence-container" fxLayout="column">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="title">The Tweet Master Says</span>
+                </div>
+                <br />
+                <span class="sentence">{{ sentence }}</span>
+            </div>
+        </div>
+        <div class="actions-container" fxLayout="row" fxLayoutAlign="end start">
+            <button mat-raised-button>Upload New</button>
+            <button mat-raised-button color="accent">Regenerate</button>
+            <button mat-raised-button color="primary">Post Tweet</button>
+        </div>
+    </div>
+</div>

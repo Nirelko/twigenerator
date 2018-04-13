@@ -1,7 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-    <twit-dropzone (onImageSelected)="toggleLoading()" [hidden]="isImageSelected"></twit-dropzone>
-    <div fxLayout="column" fxLayoutAlign="start center" class="loading-container" *ngIf="isImageSelected">
+    <twit-dropzone (onImageSelected)="toggleLoading()" (finishedCalcualting)="showSentence($event)" [hidden]="!showDropZone"></twit-dropzone>
+    <div fxLayout="column" fxLayoutAlign="start center" class="loading-container" *ngIf="!showDropZone && !sentence">
         <loading-cube></loading-cube>
         <loading-title></loading-title>
     </div>
+    <generated-sentence [sentence]="sentence" [image]="image" *ngIf="sentence"></generated-sentence>
 </div>

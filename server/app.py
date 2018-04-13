@@ -22,9 +22,9 @@ def generate_tweet():
     if file.filename == '':
         return {'Bad File': 'No File Was Selected'}, status.HTTP_404_NOT_FOUND
     
-    time.sleep(5)
+    time.sleep(1)
     
-    return jsonify({'message': file.filename})
+    return jsonify({'sentence': file.filename})
 
 if __name__ == '__main__':
     app.run(debug=True)

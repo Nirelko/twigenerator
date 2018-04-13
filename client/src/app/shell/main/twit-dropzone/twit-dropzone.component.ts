@@ -1,5 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { DropzoneConfigInterface, DropzoneComponent } from 'ngx-dropzone-wrapper';
 
 @Component({
   selector: 'twit-dropzone',
@@ -9,16 +9,18 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 export class TwitDropzoneComponent implements OnInit {
   dropzoneConfig: DropzoneConfigInterface;
   @Output() onImageSelected: EventEmitter<void>;
+  @Output() finishedCalcualting: EventEmitter<object>;
+
+  @ViewChild(DropzoneComponent) dropzone: DropzoneComponent;
 
   constructor() {
     this.onImageSelected = new EventEmitter<void>();
+    this.finishedCalcualting = new EventEmitter<object>();
   }
 
   ngOnInit(): void {
     this.dropzoneConfig = {
       url(): string {
-        console.log(arguments);
-
         return '/api/generator';
       }
     };
@@ -26,6 +28,10 @@ export class TwitDropzoneComponent implements OnInit {
 
   onFileAdded() {
     this.onImageSelected.emit();
+  }
+
+  onFinishedCalcualting([{dataURL: image}, {sentence}, progress]) {
+    this.finishedCalcualting.emit({image, sentence});
   }
 }
 

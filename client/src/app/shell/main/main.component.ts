@@ -9,13 +9,23 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  isImageSelected: boolean;
+  showDropZone: boolean;
+  image: string;
+  sentence: string;
 
   ngOnInit(): void {
+    this.showDropZone = true;
   }
 
   toggleLoading() {
-    this.isImageSelected = true;
+    this.showDropZone = false;
+    delete this.sentence;
+    delete this.image;
+  }
+
+  showSentence({image, sentence}) {
+    this.sentence = sentence;
+    this.image = image;
   }
 }
 
