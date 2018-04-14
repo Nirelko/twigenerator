@@ -51,6 +51,7 @@ export class MainComponent implements OnInit {
   }
 
   postTweet() {
+    setTimeout(() => window.open(`https://twitter.com/intent/tweet?screen_name=Post Tweet&text=${this.sentence}`, 'post tweet', 'height=250,width=600'), 0)
   }
 }
 
