@@ -1,5 +1,5 @@
 <div class="result-container" fxLayout="row">
-    <img src="{{image}}" />
+    <img src="{{image.dataURL}}" />
     <div fxLayout="column" class="content" fxFlex>
         <div fxFlex>
             <div class="sentence-container" fxLayout="column">
@@ -11,9 +11,9 @@
             </div>
         </div>
         <div class="actions-container" fxLayout="row" fxLayoutAlign="end start">
-            <button mat-raised-button>Upload New</button>
-            <button mat-raised-button color="accent">Regenerate</button>
-            <button mat-raised-button color="primary">Post Tweet</button>
+            <button mat-raised-button (click)="uploadNew()">Upload New</button>
+            <button mat-raised-button color="accent" (click)="regnerate()">Regenerate</button>
+            <button mat-raised-button color="primary" (click)="postTweet()">Post Tweet</button>
         </div>
     </div>
 </div>

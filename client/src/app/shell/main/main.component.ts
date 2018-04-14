@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { TwitService } from '../../services/twit.service';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TwitDropzoneComponent } from './twit-dropzone/twit-dropzone.component';
 
 @Component({
   selector: 'main',
@@ -10,8 +11,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class MainComponent implements OnInit {
   showDropZone: boolean;
-  image: string;
+  image: any;
   sentence: string;
+
+  @ViewChild('twitDropzone') twitDropzone: TwitDropzoneComponent;
+
+  constructor(private twitService: TwitService) {
+
+  }
 
   ngOnInit(): void {
     this.showDropZone = true;
@@ -23,10 +30,28 @@ export class MainComponent implements OnInit {
     delete this.image;
   }
 
-  showSentence({image, sentence}) {
+  showSentence({ image, sentence }) {
     this.sentence = sentence;
     this.image = image;
   }
+
+  onUploadNew() {
+    this.showDropZone = true;
+    this.twitDropzone.reset();
+    delete this.sentence;
+    delete this.image;
+  }
+
+  regenerate() {
+    delete this.sentence;
+    this.twitService.generateTwit(this.image)
+      .then(({ sentence }) => {
+        this.sentence = sentence;
+      })
+  }
+
+  postTweet() {
+  }
 }
 
-export default  MainComponent;
+export default MainComponent;

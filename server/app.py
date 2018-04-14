@@ -2,6 +2,7 @@ import time
 from flask import Flask, jsonify, request
 from flask_api import status
 from controllers.generator import GeneratorController
+import random
 
 app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] ='./uploads'
@@ -12,7 +13,7 @@ generatorController = GeneratorController()
 def index():
     return app.send_static_file('index.html')
 
-@app.route('/api/generator', methods=['POST'])
+@app.route('/api/twit/generator', methods=['POST'])
 def generate_tweet():
     if 'file' not in request.files:
         return {'Bad Request': 'Excpected To File Request'}, status.HTTP_400_BAD_REQUEST
@@ -24,7 +25,7 @@ def generate_tweet():
     
     time.sleep(1)
     
-    return jsonify({'sentence': file.filename})
+    return jsonify({'sentence': random.randint(0,100000)})
 
 if __name__ == '__main__':
     app.run(debug=True)

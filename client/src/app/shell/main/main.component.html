@@ -1,8 +1,10 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-    <twit-dropzone (onImageSelected)="toggleLoading()" (finishedCalcualting)="showSentence($event)" [hidden]="!showDropZone"></twit-dropzone>
+    <twit-dropzone (onImageSelected)="toggleLoading()" (finishedCalcualting)="showSentence($event)" [hidden]="!showDropZone"
+        #twitDropzone></twit-dropzone>
     <div fxLayout="column" fxLayoutAlign="start center" class="loading-container" *ngIf="!showDropZone && !sentence">
         <loading-cube></loading-cube>
         <loading-title></loading-title>
     </div>
-    <generated-sentence [sentence]="sentence" [image]="image" *ngIf="sentence"></generated-sentence>
+    <generated-sentence [sentence]="sentence" [image]="image" *ngIf="sentence" (onUploadNew)="onUploadNew()" (onRegnerate)="regenerate()"
+        (onPostTweet)="postTweet()"></generated-sentence>
 </div>

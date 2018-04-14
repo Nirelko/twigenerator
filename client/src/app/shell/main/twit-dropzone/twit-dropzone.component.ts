@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DropzoneConfigInterface, DropzoneComponent } from 'ngx-dropzone-wrapper';
+import { TwitService } from '../../../services/twit.service';
 
 @Component({
   selector: 'twit-dropzone',
@@ -13,16 +14,17 @@ export class TwitDropzoneComponent implements OnInit {
 
   @ViewChild(DropzoneComponent) dropzone: DropzoneComponent;
 
-  constructor() {
+  constructor(private twitService: TwitService) {
     this.onImageSelected = new EventEmitter<void>();
     this.finishedCalcualting = new EventEmitter<object>();
   }
 
   ngOnInit(): void {
+    const url = () => <string> `${this.twitService.baseRoute}/generator`;
+    url.bind(this);
+
     this.dropzoneConfig = {
-      url(): string {
-        return '/api/generator';
-      }
+      url
     };
   }
 
@@ -30,8 +32,12 @@ export class TwitDropzoneComponent implements OnInit {
     this.onImageSelected.emit();
   }
 
-  onFinishedCalcualting([{dataURL: image}, {sentence}, progress]) {
+  onFinishedCalcualting([image, {sentence}, progress]) {
     this.finishedCalcualting.emit({image, sentence});
+  }
+
+  reset() {
+    this.dropzone.directiveRef.reset();
   }
 }
 

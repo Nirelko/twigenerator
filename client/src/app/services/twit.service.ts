@@ -9,7 +9,12 @@ export class TwitService {
   constructor(private httpClient: HttpClient) {
   }
 
-  generateTwit = image => this.httpClient.post(`${this.baseRoute}`, { image }).toPromise();
+  generateTwit : any = file => {
+    const formData = new FormData();
+    formData.append('file', file, 'userfile');
+
+    return this.httpClient.post(`${this.baseRoute}/generator`, formData).toPromise()
+  }
 }
 
 
