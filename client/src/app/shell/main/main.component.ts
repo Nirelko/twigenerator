@@ -3,6 +3,7 @@ import { TwitService } from '../../services/twit.service';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TwitDropzoneComponent } from './twit-dropzone/twit-dropzone.component';
+import { TwitterService } from '../../services/twitter.service';
 
 @Component({
   selector: 'main',
@@ -16,8 +17,7 @@ export class MainComponent implements OnInit {
 
   @ViewChild('twitDropzone') twitDropzone: TwitDropzoneComponent;
 
-  constructor(private twitService: TwitService) {
-
+  constructor(private twitService: TwitService, private twitterService: TwitterService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
   }
 
   postTweet() {
-    setTimeout(() => window.open(`https://twitter.com/intent/tweet?screen_name=Post Tweet&text=${this.sentence}`, 'post tweet', 'height=250,width=600'), 0)
+    return this.twitterService.postTweet(this.sentence, this.image);
   }
 }
 

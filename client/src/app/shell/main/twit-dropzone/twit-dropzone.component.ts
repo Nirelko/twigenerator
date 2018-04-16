@@ -20,7 +20,7 @@ export class TwitDropzoneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const url = () => <string> `${this.twitService.baseRoute}/generator`;
+    const url = () => <string> `${this.twitService.baseAddress}/generator`;
     url.bind(this);
 
     this.dropzoneConfig = {

@@ -1,13 +1,12 @@
-import time
-from flask import Flask, jsonify, request
-from flask_api import status
+from flask import Flask, request
 from controllers.generator import GeneratorController
-import random
+from controllers.twitter import TwitterController
 
 app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] ='./uploads'
 
 generatorController = GeneratorController()
+twitterController = TwitterController()
 
 @app.route('/')
 def index():
@@ -15,17 +14,11 @@ def index():
 
 @app.route('/api/twit/generator', methods=['POST'])
 def generate_tweet():
-    if 'file' not in request.files:
-        return {'Bad Request': 'Excpected To File Request'}, status.HTTP_400_BAD_REQUEST
+    return generatorController.generate_tweet(request.files)
 
-    file = request.files['file']
-
-    if file.filename == '':
-        return {'Bad File': 'No File Was Selected'}, status.HTTP_404_NOT_FOUND
-    
-    time.sleep(1)
-    
-    return jsonify({'sentence': random.randint(0,100000)})
+@app.route('/api/twitter/tweet', methods=['POST'])
+def post_tweet():
+    return twitterController.tweet(request.form['status'], request.form['image'], request.form['imageName'])
 
 if __name__ == '__main__':
     app.run(debug=True)

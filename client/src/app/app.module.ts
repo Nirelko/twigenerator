@@ -18,6 +18,7 @@ import { LoadingCubeComponent } from './shell/main/loading-cube/loading-cube.com
 import { LoadingTitleComponent } from './shell/main/loading-title/loading-title.component';
 import { GeneratedSentenceComponent } from './shell/main/generated-sentence/generated-sentence.component';
 import { TwitService } from './services/twit.service';
+import { TwitterService } from './services/twitter.service';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    maxFilesize: 50,
@@ -46,7 +47,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DropzoneModule
   ],
   bootstrap: [ShellComponent],
-  providers: [TwitService, 
+  providers: [
+    TwitService,
+    TwitterService, 
   {
     provide: DROPZONE_CONFIG,
     useValue: DEFAULT_DROPZONE_CONFIG
